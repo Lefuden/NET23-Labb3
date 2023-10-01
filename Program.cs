@@ -4,54 +4,59 @@
     {
         static void Main(string[] args)
         {
-            int i = 0;
-            int[] myNumbers = new int[3]; //ungefär samma som - int num1; int num2; int num3;
+            //initialize variables and ask for user input.
+            int guesses = 5;
+            int userInput = 0;
             Random random = new Random();
-            int secret = random.Next(1,20);
+            int secret = random.Next(1,21);
 
-            Console.WriteLine(secret);
-            Console.WriteLine("Gissa hemliga talet. Du kan skriva 3 olika tal");
-
+            Console.WriteLine("Välkommen! Jag tänker på ett tal mellan 1 och 20. Kan du gissa vilket? Du får fem försök.");
+            Console.Write("> ");
             while (true)
             {
-                if (i < 3)
-                {
-                    Console.WriteLine($"Ange tal {i+1}: ");
-                    Console.Write("> ");
+                //call method to handle input error
+                userInput = ErrorHandling(userInput);
+                guesses--;
 
-                    try
-                    {
-                        myNumbers[i] = int.Parse(Console.ReadLine());
-                        i++;
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
+                //compare user input to secret number and loop until user guess correctly or run out of attempts
+                if (userInput < secret && guesses > 0)
+                {
+                    Console.WriteLine($"Du gissade för lågt! Du har {guesses} gissningar kvar.");
+                }
+                else if (userInput > secret && guesses > 0)
+                {
+                    Console.WriteLine($"Du gissade för högt! Du har {guesses} gissningar kvar.");
+                }
+                else if (guesses == 0)
+                {
+                    Console.WriteLine("Tyvärr, du lyckades inte gissa talet på fem försök!");
+                    break;
                 }
                 else
                 {
+                    Console.WriteLine("Wohoo! Du klarade det!");
                     break;
                 }
+                Console.Write("> ");
             }
-
-            Console.WriteLine();
-            int j = 1;
-            foreach (int x in myNumbers)
+        }
+        //simple method to handle user input error
+        static int ErrorHandling(int i)
+        {
+            while (true)
             {
-                Console.WriteLine($"Du gissade: {x}");
-                if (secret == x)
+                try
                 {
-                    Console.WriteLine($"Gissning {j} var rätt! Du vann!\n");
-                    j++;
+                    i = int.Parse(Console.ReadLine());
                     break;
                 }
-                else
+                catch (Exception)
                 {
-                    Console.WriteLine($"Gissning {j} var tyvärr fel.\n");
-                    j++;
+                    Console.WriteLine("Du måste ange ett tal, försök igen!");
+                    Console.Write("> ");
                 }
             }
+            return i;
         }
     }
 }
