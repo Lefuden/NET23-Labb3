@@ -1,4 +1,5 @@
-﻿namespace NumbersGame
+﻿//Daniel Frykman, .NET23
+namespace NumbersGame
 {
     internal class Program
     {
@@ -50,7 +51,7 @@
                     i = int.Parse(Console.ReadLine());
                     break;
                 }
-                catch (Exception)
+                catch
                 {
                     Console.WriteLine("Du måste ange ett tal, försök igen!");
                     Console.Write("> ");
@@ -60,3 +61,5 @@
         }
     }
 }
+//Jag hade tänkt skicka med en mer avancerad version också,
+//men hann inte riktigt göra klart den. Kommer fortsätta koda på den när jag hittar ledig tid.
